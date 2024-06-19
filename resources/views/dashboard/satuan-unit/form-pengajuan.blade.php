@@ -1,6 +1,18 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
+	@if (session()->has('success'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				Swal.fire({
+					title: "Berhasil!",
+					text: "{{ session('success') }}",
+					icon: "success"
+				});
+			})
+		</script>
+	@endif
+
 	<div class="row m-0 my-4 form-pembukaan">
 		<h4 class="fw-semibold lh-custom text-center">
 			Form Pengajuan Pembukaan <br />
@@ -69,7 +81,7 @@
 				<trix-editor input="description"></trix-editor>
 			</div>
 
-			<button type="submit" class="btn btn-primary mt-2">Submit</button>
+			<button type="submit" class="btn btn-primary mt-2">Kirim</button>
 		</form>
 	</div>
 
@@ -93,41 +105,18 @@
 
 			formPengajuanBtn.addEventListener("submit", function(event) {
 				event.preventDefault();
-
 				Swal.fire({
 					title: "Apakah Anda yakin?",
-					text: "Pastikan data form pengajuan sudah benar.",
+					text: "Pastikan data pengajuan Anda sudah benar.",
 					icon: "warning",
 					showCancelButton: true,
 					cancelButtonText: "Batal",
-					confirmButtonText: "Submit",
+					confirmButtonText: "Kirim",
 					reverseButtons: true,
 				}).then((result) => {
 					if (result.isConfirmed) {
-						// Use AJAX to submit the form
-						$.ajax({
-							url: formPengajuanBtn.action,
-							type: formPengajuanBtn.method,
-							data: $(formPengajuanBtn).serialize(),
-							success: function(response) {
-								Swal.fire({
-									title: "Berhasil!",
-									text: "Form pengajuan berhasil dikirim.",
-									icon: "success"
-								}).then(() => {
-									// Optionally reload the page or redirect
-									location
-										.reload(); // Uncomment if you want to reload the page
-								});
-							},
-							error: function(xhr) {
-								Swal.fire({
-									title: "Gagal!",
-									text: "Terjadi kesalahan saat mengirim form.",
-									icon: "error"
-								});
-							}
-						});
+						// Formulir akan disubmit secara otomatis
+						formPengajuanBtn.submit();
 					}
 				});
 			});

@@ -42,7 +42,7 @@ class LoginController extends Controller
 					->with("success", "Selamat datang, " . auth()->user()->name);
 			} elseif ($user->role === "user") {
 				return redirect()
-					->intended("/")
+					->intended("beranda")
 					->with("success", "Selamat datang, " . auth()->user()->name);
 			}
 		}

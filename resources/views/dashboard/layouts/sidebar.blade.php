@@ -44,7 +44,8 @@
 					<h6 class="label-nav">BERANDA</h6>
 					<ul class="mx-auto d-flex align-items-center flex-column">
 						<li class="link d-flex mb-1 p-0 ">
-							<a href="/dashboard-biro" class="d-flex align-items-center {{ request()->is('dashboard') ? 'link-active' : '' }}">
+							<a href="/dashboard-biro"
+								class="d-flex align-items-center {{ request()->is('dashboard-biro') ? 'link-active' : '' }}">
 								<i data-feather="grid" width="23" height="23" stroke-width="1.5"></i>
 								<span class="ms-3">Dashboard</span>
 							</a>
@@ -60,7 +61,8 @@
 							</a>
 						</li>
 						<li class="link d-flex mb-1 p-0">
-							<a href="{{ route('verification.history') }}" class="d-flex align-items-center">
+							<a href="{{ route('verification.history') }}"
+								class="d-flex align-items-center {{ request()->is('dashboard-biro/riwayat-verifikasi-pengajuan') ? 'link-active' : '' }}">
 								<i data-feather="clipboard" width="23" height="23" stroke-width="1.5"></i>
 								<span class="ms-3">Riwayat Verifikasi</span>
 							</a>
@@ -68,11 +70,12 @@
 					</ul>
 
 					<h6 class="label-nav">PENDAFTARAN MAGANG</h6>
-					<ul class="mx-auto d-flex align-items-center flex-column">
-						<li class="link d-flex mb-1 p-0">
-							<a href="" class="d-flex align-items-center">
+					<ul class="mx-auto d-flex align-items-center flex-column ">
+						<li class="link d-flex mb-1 p-0 ">
+							<a href="{{ route('verify.applicant.page') }}"
+								class="d-flex align-items-center {{ request()->is('dashboard-biro/verifikasi-pendaftar-magang*') ? 'link-active' : '' }}">
 								<i data-feather="user-check" width="23" height="23" stroke-width="1.5"></i>
-								<span class="ms-3">Verifikasi Pemagang</span>
+								<span class="ms-3">Verifikasi Pendaftar</span>
 							</a>
 						</li>
 					</ul>
@@ -84,7 +87,7 @@
 					<ul class="mx-auto d-flex align-items-center flex-column">
 						<li class="link d-flex mb-1 p-0 ">
 							<a href="/dashboard-admin"
-								class="d-flex align-items-center {{ request()->is('dashboard') ? 'link-active' : '' }}">
+								class="d-flex align-items-center {{ request()->is('dashboard-admin') ? 'link-active' : '' }}">
 								<i data-feather="grid" width="23" height="23" stroke-width="1.5"></i>
 								<span class="ms-3">Dashboard</span>
 							</a>
@@ -103,9 +106,24 @@
 					<h6 class="label-nav">LOWONGAN MAGANG</h6>
 					<ul class="mx-auto d-flex align-items-center flex-column">
 						<li class="link d-flex mb-1 p-0 ">
-							<a href="{{ route('list.internship') }}" class="d-flex align-items-center">
+							<a href="{{ route('list.internship') }}"
+								class="d-flex align-items-center {{ request()->is('dashboard-admin/lowongan-magang') ? 'link-active' : '' }}">
 								<i data-feather="file-text" width="23" height="23" stroke-width="1.5"></i>
 								<span class="ms-3">Lowongan Magang</span>
+							</a>
+						</li>
+						<li class="link d-flex mb-1 p-0 ">
+							<a href="{{ route('user.register.intern') }}"
+								class="d-flex align-items-center {{ request()->is('dashboard-admin/pendaftaran-magang') ? 'link-active' : '' }}">
+								<i data-feather="user-plus" width="23" height="23" stroke-width="1.5"></i>
+								<span class="ms-3">Pendaftaran Magang</span>
+							</a>
+						</li>
+						<li class="link d-flex mb-1 p-0 ">
+							<a href="{{ route('list.user.intern') }}"
+								class="d-flex align-items-center {{ request()->is('dashboard-admin/peserta-magang') ? 'link-active' : '' }}">
+								<i data-feather="user" width="23" height="23" stroke-width="1.5"></i>
+								<span class="ms-3">Peserta Magang</span>
 							</a>
 						</li>
 					</ul>

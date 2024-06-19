@@ -25,7 +25,8 @@ class CheckUserData
 
 			// Jika tidak ada, arahkan ke halaman pengisian data
 			if (!$applicantData) {
-				return redirect()->back()->with("fill_data", "Silahkan lengkapi data diri terlebih dahulu.");
+				// Simpan pesan di session tanpa melakukan redirect
+				session()->flash("fill_data", "Silahkan lengkapi data diri terlebih dahulu.");
 			}
 		}
 		return $next($request);

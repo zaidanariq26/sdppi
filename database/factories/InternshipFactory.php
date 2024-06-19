@@ -44,7 +44,7 @@ class InternshipFactory extends Factory
 
 		return [
 			"title" => $judul,
-			"user_id" => rand(1, 2),
+			"user_id" => 1,
 			"slug" => Str::slug($judul),
 			"division" => $divisi,
 			"vacancy_slots" => $jumlah_orang,

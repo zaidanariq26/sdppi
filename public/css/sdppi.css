@@ -149,7 +149,7 @@ a {
 
 .table-section {
 	border-radius: 10px;
-	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
 .lh-custom {
@@ -221,5 +221,10 @@ a {
 .logout-btn:active,
 .delete-btn:active {
 	background-color: #dc3545;
+	color: white;
+}
+
+.success-btn:active {
+	background-color: #198754;
 	color: white;
 }

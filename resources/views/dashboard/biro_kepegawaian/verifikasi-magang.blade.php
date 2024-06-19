@@ -2,26 +2,6 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-	@if (session()->has('success'))
-		<div class="alert alert-success d-flex align-items-center alert-dismissible fade show centered-alert col-md-8 col-10"
-			role="alert">
-			<i class="bi bi-check-circle-fill"></i>
-			<div class="ms-md-2 ms-3">
-				{{ session('success') }}
-			</div>
-		</div>
-	@endif
-
-	@if (session()->has('warning'))
-		<div class="alert alert-warning d-flex align-items-center alert-dismissible fade show centered-alert col-md-8 col-10"
-			role="alert">
-			<i class="bi bi-exclamation-circle"></i>
-			<div class="ms-md-2 ms-3">
-				{{ session('warning') }}
-			</div>
-		</div>
-	@endif
-
 	<div class="row py-4 px-md-5 px-3 table-section m-0 my-5">
 		<h4 class="fw-semibold mb-5 mt-1 lh-custom text-center">
 			Verifikasi Pengajuan Pembukaan <br />

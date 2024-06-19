@@ -15,17 +15,6 @@
 		<h4 class="fw-semibold mb-5 mt-1 lh-custom text-center">
 			Lowongan Magang
 		</h4>
-		<div class="d-flex justify-content-between align-items-center mb-4" style="padding-inline: 8px">
-			{{-- <form id="deleteForm" action="{{ route('riwayat.delete.all') }}" method="post">
-				@csrf
-				@method('delete')
-				<button type="submit" class="btn btn-outline-danger p-md-2">
-					<span class="d-sm-block d-none">Hapus Riwayat</span>
-					<span data-bs-toggle="tooltip" data-bs-title="Hapus Riwayat" data-feather="trash-2" width="18" height="18"
-						class="align-text-bottom d-sm-none"></span>
-				</button>
-			</form> --}}
-		</div>
 
 		<div class="table-responsive-lg">
 			<table class="table table-bordered">
@@ -55,24 +44,31 @@
 								<span class="badge {{ $classMap[$intern->status] ?? 'bg-secondary' }}">{{ ucfirst($intern->status) }}</span>
 							</td>
 							<td>
-
-								<div>
-									<button type="button" data-bs-title="Lihat" class="badge bg-warning border-0" data-bs-toggle="modal"
-										data-bs-target="#exampleModal{{ $loop->iteration }}">
-										<span data-feather="eye" width="18" height="18" class="align-text-bottom"></span>
+								<div class="dropdown">
+									<button type="button"class="badge bg-warning border-0" data-bs-toggle="dropdown" aria-expanded="false">
+										<span data-feather="more-horizontal" width="18" height="18" class="align-text-bottom"></span>
 									</button>
+
+									<ul class="dropdown-menu dropdown-menu-end mt-2">
+										<li>
+											<a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $loop->iteration }}">
+												Lihat
+											</a>
+										</li>
+										<li>
+											<form class="delete-internship" action='{{ route('delete.internship', $intern->id) }}' method="post">
+												@method('delete')
+												@csrf
+												<button type="submit" class="dropdown-item delete-btn">
+													Hapus
+												</button>
+											</form>
+										</li>
+									</ul>
 								</div>
-
-								{{-- <form action='{{ route('riwayat.delete', $intern->id) }}' method="post" class="d-md-inline d-none">
-									@method('delete')
-									@csrf
-									<button class="badge bg-danger border-0" data-bs-toggle="tooltip" data-bs-title="Hapus"
-										onclick="return confirm('Apakah Anda yakin?')">
-										<span data-feather="trash-2" width="18" height="18" class="align-text-bottom"></span>
-									</button>
-								</form> --}}
 							</td>
 						</tr>
+
 						<!-- Modal -->
 						<div class="modal fade" id="exampleModal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="exampleModalLabel"
 							aria-hidden="true">
@@ -136,11 +132,28 @@
 	</div>
 
 	<script>
-		// Button Hapus Riwayat
-		document.getElementById('deleteForm').addEventListener('submit', function(event) {
-			if (!confirm('Apakah Anda yakin?')) {
-				event.preventDefault(); // Mencegah pengiriman form
-			}
+		document.addEventListener("DOMContentLoaded", function() {
+			const deleteBtn = document.querySelectorAll(".delete-internship");
+
+			deleteBtn.forEach(btn => {
+				btn.addEventListener("submit", function(event) {
+					event.preventDefault();
+					Swal.fire({
+						title: "Hapus Lowongan Magang",
+						text: "Apakah Anda yakin akan menghapus lowongan magang ini?",
+						icon: "warning",
+						showCancelButton: true,
+						cancelButtonText: "Batal",
+						confirmButtonText: "Hapus",
+						reverseButtons: true,
+					}).then((result) => {
+						if (result.isConfirmed) {
+							// Formulir akan disubmit secara otomatis
+							btn.submit();
+						}
+					});
+				});
+			});
 		});
 	</script>
 @endsection

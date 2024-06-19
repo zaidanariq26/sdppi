@@ -30,4 +30,9 @@ class Internship extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
+
+	public function applicantStatuses()
+	{
+		return $this->hasMany(ApplicantStatus::class);
+	}
 }

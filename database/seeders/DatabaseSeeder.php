@@ -15,34 +15,26 @@ class DatabaseSeeder extends Seeder
 	public function run(): void
 	{
 		User::create([
-			"name" => "Zaidan Ariq",
-			"username" => "zaidan",
+			"name" => "Satuan Unit",
+			"username" => "satuan_unit",
 			"role" => "satuan-unit",
-			"email" => "zaidanariq86@gmail.com",
+			"email" => "satuanunit@gmail.com",
 			"password" => bcrypt("password")
 		]);
 
 		User::create([
-			"name" => "dragon",
-			"username" => "dragon_knigth",
-			"role" => "satuan-unit",
-			"email" => "dragon@gmail.com",
-			"password" => bcrypt("password")
-		]);
-
-		User::create([
-			"name" => "Ariq Zaidn",
-			"username" => "ariq26",
+			"name" => "Admin",
+			"username" => "admin",
 			"role" => "admin",
-			"email" => "ariq26@gmail.com",
+			"email" => "admin@gmail.com",
 			"password" => bcrypt("password")
 		]);
 
 		User::create([
-			"name" => "Ariq",
-			"username" => "ariq",
+			"name" => "Biro Kepegawaian",
+			"username" => "biro_kepegawain",
 			"role" => "biro-kepegawaian",
-			"email" => "ariq503@gmail.com",
+			"email" => "birokepegawaian@gmail.com",
 			"password" => bcrypt("password")
 		]);
 
@@ -50,10 +42,18 @@ class DatabaseSeeder extends Seeder
 			"name" => "Phantom",
 			"username" => "phantom",
 			"role" => "user",
-			"email" => "phantom@gmail.com",
+			"email" => "usersatu789456@gmail.com",
 			"password" => bcrypt("password")
 		]);
 
-		Internship::factory(15)->create();
+		User::create([
+			"name" => "Andi",
+			"username" => "andi",
+			"role" => "user",
+			"email" => "andi@gmail.com",
+			"password" => bcrypt("password")
+		]);
+
+		Internship::factory(5)->create();
 	}
 }

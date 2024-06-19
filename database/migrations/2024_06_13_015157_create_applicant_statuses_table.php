@@ -10,23 +10,17 @@ return new class extends Migration {
 	 */
 	public function up(): void
 	{
-		Schema::create("applicant_data", function (Blueprint $table) {
+		Schema::create("applicant_statuses", function (Blueprint $table) {
 			$table->id();
 
 			$table->unsignedBigInteger("user_id");
 			$table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+			$table->unsignedBigInteger("internship_id");
+			$table->foreign("internship_id")->references("id")->on("internships")->onDelete("cascade");
 
-			$table->string("name");
-			$table->string("student_id")->unique();
-			$table->string("school");
-			$table->string("provinsi");
-			$table->string("distrik");
-			$table->string("kecamatan");
-			$table->string("kelurahan");
-			$table->text("address");
-			$table->string("school_mail")->nullable();
-			$table->string("cv");
-			$table->string("image");
+			$table->enum("status", ["mendaftar", "verifikasi", "gagal", "lulus"])->default("mendaftar");
+			$table->string("certificate")->nullable();
+			$table->string("surat_keterangan")->nullable();
 
 			$table->timestamps();
 		});
@@ -37,6 +31,6 @@ return new class extends Migration {
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists("applicant_data");
+		Schema::dropIfExists("applicant_statuses");
 	}
 };

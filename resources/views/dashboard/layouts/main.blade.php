@@ -7,18 +7,18 @@
 		<title>SDPPI Magang | {{ $title }}</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
 			integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+		<link rel="shortcut icon" href="{{ asset('img/kominfo-logo.png') }}" type="image/x-icon">
 
 		{{-- My CSS --}}
-		<link rel="stylesheet" href="/css/dashboard-style.css" />
+		<link rel="stylesheet" href="/css/sdppi.css" />
+		<link rel="stylesheet" href="/css/styles.css" />
 
 		{{-- Bootstrap Icon --}}
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-		{{-- Jquery Confirm --}}
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
-
 		{{-- Trix --}}
 		<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+
 	</head>
 	<style>
 		trix-toolbar [data-trix-button-group="file-tools"] {
@@ -53,6 +53,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js"
 			integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
 		<script src="/js/script.js"></script>
 	</body>
 

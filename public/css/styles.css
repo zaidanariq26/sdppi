@@ -59,3 +59,22 @@
 	background-color: #dc3545;
 	color: white;
 }
+
+.profile-user {
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
+	box-shadow: 0 0 4px 3px #0129507d;
+}
+
+.profile-user img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.slider img {
+	width: 100%;
+	border-radius: 16px;
+}

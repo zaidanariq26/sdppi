@@ -16,7 +16,7 @@
 			@if (session()->has('success'))
 				<script>
 					document.addEventListener('DOMContentLoaded', function() {
-						alertToast('success', "{{ session('succes') }}")
+						alertToast('success', "{{ session('success') }}")
 					})
 				</script>
 			@endif

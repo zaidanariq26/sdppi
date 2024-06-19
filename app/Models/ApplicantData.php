@@ -15,4 +15,9 @@ class ApplicantData extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
+
+	public function applicantStatuses()
+	{
+		return $this->hasMany(ApplicantStatus::class, "user_id", "user_id");
+	}
 }

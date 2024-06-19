@@ -1,22 +1,59 @@
 @extends('layouts.main')
 
 @section('container')
-	<section class="row align-items-start" style=" padding-top: 10%; margin-bottom:200px">
-		<div class="col-lg-6 order-2 order-lg-1 mt-lg-0 mt-1">
+	{{-- alert --}}
+	@if (session()->has('success'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				alertToast('success', '{{ session('success') }}')
+			})
+		</script>
+	@endif
+
+	@if (session()->has('update-data'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				alertToast('success', '{{ session('update-data') }}')
+			})
+		</script>
+	@endif
+
+	@if (session()->has('fill_data'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				Swal.fire({
+					title: "Data belum lengkap",
+					text: "{{ session('fill_data') }}",
+					icon: "warning",
+					confirmButtonText: "Lengkapi Data",
+					allowOutsideClick: false,
+					allowEscapeKey: false,
+					allowEnterKey: false,
+				}).then((result) => {
+					if (result.isConfirmed) {
+						// Redirect to the form page
+						window.location.href = "{{ route('applicant.data.form') }}";
+					}
+				});
+			});
+		</script>
+	@endif
+	{{-- !!alert!! --}}
+	<section class="row align-items-start " style="height:100vh; padding-top: 10%; margin-bottom:200px;">
+		<div class="col-lg-6 order-2
+		order-lg-1 mt-lg-0 mt-1">
 			<h2 class="fw-semibold mb-3" style="line-height: 40px">Selamat Datang di SDPPI <br> Magang Kominfo</h2>
-			<p class="mb-4">Mulailah pengalamanmu dengan mendaftarkan diri <br> dan bergabung dengan kami</p>
-			<a href="{{ route('register') }}" class="btn btn-primary p-3 fw-semibold" style="width:200px">Daftar Sekarang</a>
+			<p class="mb-4">Daftarkan diri Anda dan bergabunglah dengan tim kami <br> untuk memulai pengalaman magang yang luar
+				biasa!</p>
+			<a href="{{ route('lowongan.magang') }}" class="btn btn-primary py-3 px-2 fw-semibold" style="width:250px">Cek Lowongan
+				Magang</a>
 		</div>
-		{{-- <div class="row">
-				<img src="img/SDPPI.png" style="height: 300px; object-fit:cover; object-position: center; border-radius: 10px"
-					alt="" class="p-0">
-			</div> --}}
 
 		<div class="col-lg-5 order-1 order-lg-2 mb-4 mb-md-0 offset-lg-1">
 			<div class="row">
 				<div class="slider-container">
 					<div class="slider">
-						<img id="dynamic-img" src="img/SDPPI.png" alt="" class="img-fluid rounded-img">
+						<img id="dynamic-img2" src="img/SDPPI.png" alt="" class="img-fluid rounded-img">
 					</div>
 				</div>
 			</div>
@@ -109,6 +146,7 @@
 		</div>
 	</section>
 
+
 	<script>
 		// Array of image sources
 		const images = ["img/SDPPI.png", "img/SDPPI2.png", "img/SDPPI3.png"];
@@ -119,7 +157,7 @@
 		// Function to change the image
 		function changeImage() {
 			currentIndex = (currentIndex + 1) % images.length;
-			const dynamicImg = document.getElementById('dynamic-img');
+			const dynamicImg = document.getElementById('dynamic-img2');
 			if (dynamicImg) {
 				dynamicImg.src = images[currentIndex];
 			} else {

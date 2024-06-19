@@ -50,8 +50,13 @@ class User extends Authenticatable
 		return $this->hasMany(Internship::class);
 	}
 
-	public function applicantData()
+	public function applicant_data()
 	{
 		return $this->hasOne(ApplicantData::class);
+	}
+
+	public function applicantStatuses()
+	{
+		return $this->hasMany(ApplicantStatus::class);
 	}
 }

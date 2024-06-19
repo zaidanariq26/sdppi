@@ -6,27 +6,34 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="/">Beranda</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link {{ request()->is('lowongan-magang*') ? 'active' : '' }}"
-						href="{{ route('lowongan.magang') }}">Lowongan Magang</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link {{ $title === 'About' ? 'active' : '' }}" href="/about">Tentang Kominfo</a>
-				</li>
 
-			</ul>
+			@auth
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('beranda') ? 'active' : '' }}" href="/beranda">Beranda</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('lowongan-magang*') ? 'active' : '' }}"
+							href="{{ route('lowongan.magang') }}">Lowongan Magang</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('kegiatanku*') ? 'active' : '' }}"
+							href="{{ route('kegiatanku') }}">Kegiatanku</a>
+					</li>
+				</ul>
+			@endauth
+
 			@auth
 				<div class="dropdown">
-					<div class="profile" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="https://i.pinimg.com/236x/be/cc/64/becc64c1b51d544744d2a523b57cbf32.jpg" alt="" />
+					<div class="profile {{ !optional(auth()->user()->applicant_data)->image ? 'd-none' : '' }}"
+						data-bs-toggle="dropdown" aria-expanded="false">
+						@if (optional(auth()->user()->applicant_data)->image)
+							<img src="{{ asset('storage/' . auth()->user()->applicant_data->image) }}" />
+						@endif
 					</div>
 
 					<ul class="dropdown-menu dropdown-menu-end mt-2">
-						<li><a class="dropdown-item" href="#">Profil</a></li>
+						<li><a class="dropdown-item" href="{{ route('profil') }}">Profil</a></li>
 						<li>
 							<form id="logout-btn-user" action="{{ route('logout') }}" method="post">
 								@csrf

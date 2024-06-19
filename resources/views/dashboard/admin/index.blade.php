@@ -78,10 +78,9 @@
 		</div>
 	</div>
 
-	{{-- <div class="row py-4 px-5 table-section m-0 my-5">
+	<div class="row py-4 px-md-5 px-4 table-section m-0 my-5">
 		<h4 class="fw-semibold mb-5 mt-1 lh-custom text-center">
-			Status Pengajuan Pembukaan <br />
-			Lowongan Magang
+			Daftar Lowongan Magang
 		</h4>
 		<table class="table table-bordered">
 			<thead>
@@ -89,6 +88,8 @@
 					<th scope="col">No</th>
 					<th scope="col">Judul</th>
 					<th scope="col">Divisi</th>
+					<th scope="col">Slot</th>
+					<th scope="col">Durasi</th>
 					<th scope="col">Status</th>
 				</tr>
 			</thead>
@@ -98,6 +99,8 @@
 						<th scope="row">{{ $loop->iteration }}</th>
 						<td>{{ $intern->title }}</td>
 						<td>{{ $intern->division }}</td>
+						<td>{{ $intern->vacancy_slots }} orang</td>
+						<td>{{ $intern->duration_in_months }} bulan</td>
 						<td>
 							@php
 								$classMap = [
@@ -111,10 +114,10 @@
 					</tr>
 				@empty
 					<tr>
-						<td colspan="5" class="text-center py-5 text-muted ">Tidak ada riwayat pengajuan!</td>
+						<td colspan="6" class="text-center py-5 text-muted ">Tidak ada pengajuan lowongan magang!</td>
 					</tr>
 				@endforelse
 			</tbody>
 		</table>
-	</div> --}}
+	</div>
 @endsection

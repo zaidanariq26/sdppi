@@ -10,12 +10,6 @@ use App\Http\Controllers\SatuanUnitController;
 use App\Http\Controllers\UserApplicantController;
 use App\Models\Post;
 
-Route::get("/", function () {
-	return view("home", [
-		"title" => "Beranda"
-	]);
-});
-
 Route::get("/about", function () {
 	return view("about", [
 		"title" => "About",
@@ -25,23 +19,15 @@ Route::get("/about", function () {
 	]);
 });
 
-Route::get("/posts", function () {
-	return view("posts", [
-		"title" => "Lowongan Magang",
-		"posts" => Post::all()
-	]);
-});
-
-Route::get("/posts/{slug}", function ($slug) {
-	return view("posts", [
-		"title" => "Single Posts",
-		"post" => Post::find($slug)
-	]);
-});
-
 Route::post("/logout", [LoginController::class, "logout"])->name("logout");
 
-Route::middleware(["guest"])->group(function () {
+Route::middleware(["redirect.if.auth"])->group(function () {
+	Route::get("/", function () {
+		return view("home", [
+			"title" => "Beranda"
+		]);
+	});
+
 	Route::get("/login", [LoginController::class, "index"])->name("login");
 	Route::post("/login", [LoginController::class, "authenticate"])->name("authenticate");
 
@@ -58,7 +44,32 @@ Route::middleware(["guest"])->group(function () {
 Route::middleware(["auth"])->group(function () {
 	// Pemagang
 	Route::middleware(["user_applicant"])->group(function () {
-		Route::get("/lowongan-magang", [UserApplicantController::class, "index"])->name("lowongan.magang");
+		Route::get("/beranda", function () {
+			return view("user.beranda", [
+				"title" => "Beranda"
+			]);
+		})
+			->name("beranda")
+			->middleware("check.user.data");
+
+		Route::get("/lowongan-magang", [UserApplicantController::class, "index"])
+			->name("lowongan.magang")
+			->middleware("check.user.data");
+
+		Route::get("/kegiatanku", [UserApplicantController::class, "showStatusIntern"])
+			->name("kegiatanku")
+			->middleware("check.user.data");
+
+		Route::get("/form-data-pemagang", [UserApplicantController::class, "formApplicant"])->name("applicant.data.form");
+		Route::post("/form-data-pemagang", [UserApplicantController::class, "storeApplicantData"])->name("applicant.data.form.post");
+
+		Route::get("/profil", [UserApplicantController::class, "showProfil"])->name("profil");
+		Route::post("/update-foto-profil", [UserApplicantController::class, "updateProfilePhoto"])->name("update.foto.profil");
+
+		Route::post("/daftar-magang/{internship}", [UserApplicantController::class, "registerInternship"])->name("daftar.magang");
+
+		Route::get("/update-data-diri", [UserApplicantController::class, "showUpdateData"])->name("update.data");
+		Route::put("/update-data-diri/{applicantData}", [UserApplicantController::class, "updateDataUser"])->name("update.data.put");
 	});
 
 	// Satuan Unit
@@ -80,7 +91,12 @@ Route::middleware(["auth"])->group(function () {
 		Route::get("/dashboard-biro/verifikasi-pengajuan", [BiroKepegawaianController::class, "verify"])->name("verification.index");
 		Route::put("/dashboard-biro/verifikasi-pengajuan/{internship}/accepted", [BiroKepegawaianController::class, "accepted"])->name("verification.accepted");
 		Route::put("/dashboard-biro/verifikasi-pengajuan/{internship}/rejected", [BiroKepegawaianController::class, "rejected"])->name("verification.rejected");
+
 		Route::get("/dashboard-biro/riwayat-verifikasi-pengajuan", [BiroKepegawaianController::class, "verificationHistory"])->name("verification.history");
+
+		Route::get("/dashboard-biro/verifikasi-pendaftar-magang", [BiroKepegawaianController::class, "verifyApplicantPage"])->name("verify.applicant.page");
+		Route::post("/dashboard-biro/verifikasi-pendaftar-magang/{applicantStatus}/verifikasi", [BiroKepegawaianController::class, "verifyApplicant"])->name("verify.applicant");
+		Route::put("/dashboard-biro/verifikasi-pendaftar-magang/{applicantStatus}/pendaftar-ditolak", [BiroKepegawaianController::class, "rejectVerifyApplicant"])->name("reject.verify.applicant");
 	});
 
 	// Admin
@@ -90,5 +106,13 @@ Route::middleware(["auth"])->group(function () {
 		Route::delete("/dashboard-admin/daftar-admin-sdppi/{user}/delete", [AdministratorController::class, "deleteAdmin"])->name("list.admin.delete");
 
 		Route::get("/dashboard-admin/lowongan-magang", [AdministratorController::class, "showAvailableInternship"])->name("list.internship");
+		Route::delete("/dashboard-admin/lowongan-magang/{internship}", [AdministratorController::class, "deleteInternship"])->name("delete.internship");
+
+		Route::get("/dashboard-admin/pendaftaran-magang", [AdministratorController::class, "userRegisterInternship"])->name("user.register.intern");
+		Route::put("/dashboard-admin/pendaftaran-magang/{applicantStatus}/accepted", [AdministratorController::class, "acceptedApplicant"])->name("accept.applicant");
+		Route::put("/dashboard-admin/pendaftaran-magang/{applicantStatus}/rejected", [AdministratorController::class, "rejectedApplicant"])->name("reject.applicant");
+
+		Route::get("/dashboard-admin/peserta-magang", [AdministratorController::class, "listUserIntern"])->name("list.user.intern");
 	});
+	Route::get("/dashboard-admin/profil-admin", [AdministratorController::class, "showProfileAdmin"])->name("profile.admin");
 });

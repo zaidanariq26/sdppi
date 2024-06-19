@@ -23,11 +23,11 @@
 
 	<div class="dropdown">
 		<div class="profile" data-bs-toggle="dropdown" aria-expanded="false">
-			<img src="https://i.pinimg.com/236x/be/cc/64/becc64c1b51d544744d2a523b57cbf32.jpg" alt="" />
+			<img src="/img/logo-admin3.png" alt="" />
 		</div>
 
 		<ul class="dropdown-menu dropdown-menu-end mt-2">
-			<li><a class="dropdown-item" href="#">Profil</a></li>
+			<li><a class="dropdown-item" href="{{ route('profile.admin') }}">Profil</a></li>
 			<li>
 				<form id="logout-btn" action="{{ route('logout') }}" method="post">
 					@csrf

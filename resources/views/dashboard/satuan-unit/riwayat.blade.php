@@ -2,16 +2,6 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-	@if (session()->has('success'))
-		<div class="alert alert-success d-flex align-items-center alert-dismissible fade show centered-alert col-md-8 col-10"
-			role="alert">
-			<i class="bi bi-check-circle-fill"></i>
-			<div class="ms-md-2 ms-3">
-				{{ session('success') }}
-			</div>
-		</div>
-	@endif
-
 	<div class="row py-4 px-md-5 px-3 table-section m-0 my-5">
 		<h4 class="fw-semibold mb-5 mt-1 lh-custom text-center">
 			Riwayat Pengajuan Pembukaan <br />
@@ -32,16 +22,6 @@
 						class="{{ request()->is('dashboard/riwayat-pengajuan/rejected') ? 'filter-nav-active' : '' }}">Ditolak</a>
 				</li>
 			</ul>
-
-			{{-- <form id="deleteForm" action="{{ route('riwayat.delete.all') }}" method="post">
-				@csrf
-				@method('delete')
-				<button type="submit" class="btn btn-outline-danger p-md-2">
-					<span class="d-sm-block d-none">Hapus Riwayat</span>
-					<span data-bs-toggle="tooltip" data-bs-title="Hapus Riwayat" data-feather="trash-2" width="18" height="18"
-						class="align-text-bottom d-sm-none"></span>
-				</button>
-			</form> --}}
 		</div>
 
 		<div class="table-responsive-lg">
@@ -72,8 +52,6 @@
 								<span class="badge {{ $classMap[$intern->status] ?? 'bg-secondary' }}">{{ ucfirst($intern->status) }}</span>
 							</td>
 							<td>
-
-
 								<div>
 									<button type="button" data-bs-title="Lihat" class="badge bg-warning border-0" data-bs-toggle="modal"
 										data-bs-target="#exampleModal{{ $loop->iteration }}">
@@ -81,14 +59,6 @@
 									</button>
 								</div>
 
-								{{-- <form action='{{ route('riwayat.delete', $intern->id) }}' method="post" class="d-md-inline d-none">
-									@method('delete')
-									@csrf
-									<button class="badge bg-danger border-0" data-bs-toggle="tooltip" data-bs-title="Hapus"
-										onclick="return confirm('Apakah Anda yakin?')">
-										<span data-feather="trash-2" width="18" height="18" class="align-text-bottom"></span>
-									</button>
-								</form> --}}
 							</td>
 						</tr>
 						<!-- Modal -->

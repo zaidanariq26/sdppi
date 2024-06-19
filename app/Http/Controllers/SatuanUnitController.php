@@ -59,7 +59,7 @@ class SatuanUnitController extends Controller
 
 		Internship::create($validatedData);
 
-		return redirect()->back();
+		return redirect()->back()->with("success", "Formulir pengajuan lowongan berhasil dikirim");
 	}
 
 	public function showHistory()
