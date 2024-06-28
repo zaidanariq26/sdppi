@@ -21,7 +21,7 @@ class InternshipFactory extends Factory
 		$judul = $this->faker->sentence;
 		$divisi = $this->faker->randomElement(["Informatika", "Komunikasi", "UI/UX Design"]);
 		$deskripsi = $this->faker->paragraph;
-		$status = $this->faker->randomElement(["menunggu", "diterima", "ditolak"]);
+		// $status = $this->faker->randomElement(["menunggu", "diterima", "ditolak"]);
 		$jumlah_orang = $this->faker->randomDigit + 1;
 		$duration = $this->faker->randomDigit + 1;
 
@@ -52,7 +52,7 @@ class InternshipFactory extends Factory
 			"duration_in_months" => $duration,
 			"intern_start" => $formattedStartDate,
 			"intern_end" => $formattedEndDate,
-			"status" => "menunggu"
+			"status" => "diterima"
 		];
 	}
 }

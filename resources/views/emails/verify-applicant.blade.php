@@ -61,19 +61,19 @@
 
 	<body>
 		<div class="container">
-			<img src="{{ asset('img/KOMINFO.png') }}" alt="Logo Perusahaan" style="max-width: 150px;">
 			<h2>Selamat! Anda Diterima untuk Magang di Perusahaan Kami</h2>
-			<p>Halo {{ $applicant->user->name }},</p>
-			<p>Kami senang untuk memberitahu bahwa Anda telah diterima untuk magang di perusahaan kami. Kami yakin Anda akan
+			<p>Halo {{ $applicantStatus->user->name }},</p>
+			<p>Kami senang untuk memberitahu bahwa Anda telah diterima untuk magang di perusahaan kami di bidang
+				{{ $applicantStatus->internship->name }}. Kami yakin Anda akan
 				memiliki pengalaman yang berharga dan berharga selama magang Anda.</p>
 			<p>Berikut adalah detail penting terkait magang Anda:</p>
 			<ul>
-				<li><strong>Tanggal Magang:</strong> {{ $applicant->internship->duration }}</li>
+				<li><strong>Tanggal Magang:</strong> {{ $applicantStatus->internship->duration }}</li>
 				<li><strong>Kontak Person:</strong> +628123456789</li>
 				<li><strong>Informasi Tambahan:</strong> Kirim melalui email yang kami sediakan untuk informasi tambahan</li>
 			</ul>
 			<p>Jika Anda memiliki pertanyaan lebih lanjut atau perlu informasi tambahan, jangan ragu untuk menghubungi kami di <a
-					href="">admin@gmail.com</a> atau +628123456789.</p>
+					href="mailto:sdppia@gmail.com">sdppia@gmail.com</a> atau +628123456789.</p>
 			<p>Salam hangat,<br>Tim Magang SDPPI</p>
 		</div>
 	</body>

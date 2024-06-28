@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AcceptedMail;
 use Illuminate\Http\Request;
 use App\Models\ApplicantStatus;
+use App\Mail\RejectedMail;
 use App\Models\Internship;
 use Illuminate\Support\Facades\Mail;
 
@@ -94,20 +96,11 @@ class BiroKepegawaianController extends Controller
 				]);
 
 			$userEmail = $applicantStatus->user->email;
-			Mail::send("emails.verify-applicant", ["applicant" => $applicantStatus], function ($message) use ($userEmail) {
-				$message->to($userEmail);
-				$message->subject("Pengumumam Hasil Seleksi Magang SDPPI");
-			});
 
 			try {
-				Mail::send("emails.verify-applicant", ["applicant" => $applicantStatus], function ($message) use ($userEmail) {
-					$message->to($userEmail);
-					$message->subject("Pengumumam Hasil Seleksi Magang SDPPI");
-				});
-
-				return redirect()->back()->with("success", "Proses penerimaan berhasil dilakukan!");
-			} catch (\Exception $e) {
-				// Hapus token yang baru saja dibuat jika pengiriman email gagal
+				Mail::to($userEmail)->send(new AcceptedMail($applicantStatus));
+				return redirect()->back()->with("success", "Penerimaan pendaftar magang berhasil dilakukan!");
+			} catch (\Throwable $th) {
 				return redirect()->back()->with("error", "Gagal mengirim email. Silahkan coba lagi.");
 			}
 		}
@@ -120,16 +113,8 @@ class BiroKepegawaianController extends Controller
 		$applicantStatus->status = "gagal";
 		$applicantStatus->save();
 
-		Mail::send("emails.reject-applicant", ["applicant" => $applicantStatus], function ($message) use ($userEmail) {
-			$message->to($userEmail);
-			$message->subject("Pengumumam Hasil Seleksi Magang SDPPI");
-		});
-
 		try {
-			Mail::send("emails.reject-applicant", ["applicant" => $applicantStatus], function ($message) use ($userEmail) {
-				$message->to($userEmail);
-				$message->subject("Pengumumam Hasil Seleksi Magang SDPPI");
-			});
+			Mail::to($userEmail)->send(new RejectedMail($applicantStatus));
 
 			return redirect()->back()->with("success", "Penolakan pendaftar magang berhasil dilakukan!");
 		} catch (\Exception $e) {

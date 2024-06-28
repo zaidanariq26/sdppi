@@ -1,6 +1,28 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
+	@if (session()->has('success'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				Swal.fire({
+					title: "Berhasil!",
+					text: "{{ session('success') }}",
+					icon: "success"
+				});
+			})
+		</script>
+	@endif
+	@if (session()->has('error'))
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				Swal.fire({
+					title: "Gagal!",
+					text: "{{ session('error') }}",
+					icon: "error"
+				});
+			})
+		</script>
+	@endif
 	<div class="row py-4 px-md-5 px-3 table-section m-0 my-5">
 		<h4 class="fw-semibold mb-5 mt-1 lh-custom text-center">
 			Peserta Magang
@@ -39,10 +61,36 @@
 								<span class="ms-1 badge {{ $classMap[$user->status] ?? 'bg-secondary' }}">{{ ucfirst($user->status) }}</span>
 							</td>
 							<td>
-								<button type="button" class="badge bg-primary border-0" data-bs-toggle="modal"
-									data-bs-target="#exampleModal{{ $loop->iteration }}">
-									Lihat
-								</button>
+								<div>
+									<button type="button" class="badge bg-primary border-0" data-bs-toggle="dropdown" aria-expanded="false">
+										<span data-feather="more-horizontal" width="18" height="18" class="align-text-bottom"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-end mt-2">
+										<li>
+											<button type="button" class="dropdown-item" data-bs-toggle="modal"
+												data-bs-target="#exampleModal{{ $loop->iteration }}">
+												Lihat
+											</button>
+										</li>
+										<li>
+											@if (!$user->certificate)
+												<form action='{{ route('upload.certificate', $user->id) }}' method="post" class="d-inline sertifikat-btn"
+													enctype="multipart/form-data">
+													@method('put')
+													@csrf
+													<button class="dropdown-item" type="submit">
+														Unggah Sertifikat
+													</button>
+													<input type="hidden" name="applicant_status_id" value="{{ $user->id }}">
+													<input type="file" name="file" style="display:none;">
+												</form>
+											@else
+												<a href="{{ asset('storage/' . $user->certificate) }}" target="_blank" class="dropdown-item">Lihat
+													Sertifikat</a>
+											@endif
+										</li>
+									</ul>
+								</div>
 							</td>
 						</tr>
 
@@ -105,8 +153,8 @@
 												<div class="col-md-6 mb-md-0 mb-3">
 													<span class="text-secondary d-block">Surat Tembusan</span>
 													<div>
-														@if ($user->applicant_data && $user->applicant_data->school_mail)
-															<a href="{{ asset('storage/' . $user->applicant_data->school_mail) }}" target="_blank"
+														@if ($user->applicantData && $user->applicantData->school_mail)
+															<a href="{{ asset('storage/' . $user->applicantData->school_mail) }}" target="_blank"
 																class="badge bg-primary py-2 ">
 																<span>Lihat Surat Tembusan</span>
 															</a>
@@ -132,4 +180,49 @@
 			</table>
 		</div>
 	</div>
+
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			const uploadCertificate = document.querySelectorAll(".sertifikat-btn");
+
+			uploadCertificate.forEach(form => {
+				form.querySelector('.dropdown-item').addEventListener('click', function(event) {
+					event.preventDefault(); // Prevent default form submission
+
+					Swal.fire({
+						title: 'Unggah Serfikat Kelulusan Magang',
+						text: "Silahkan unggah Sertifikat Kelulusan Magang terlebih dahulu.",
+						input: 'file',
+						inputAttributes: {
+							'accept': 'image/*,application/pdf' // Sesuaikan dengan tipe file yang Anda butuhkan
+						},
+						showCancelButton: true,
+						confirmButtonText: 'Unggah',
+						cancelButtonText: 'Batal',
+						preConfirm: (file) => {
+							return new Promise((resolve, reject) => {
+								if (file) {
+									resolve(file);
+								} else {
+									reject('No file selected');
+								}
+							});
+						}
+					}).then((result) => {
+						if (result.isConfirmed && result.value) {
+							// Buat input file sementara untuk mengunggah file yang dipilih
+							const fileInput = form.querySelector('input[type="file"]');
+							const dataTransfer = new DataTransfer();
+							dataTransfer.items.add(result.value);
+							fileInput.files = dataTransfer.files;
+
+							// Kirimkan formulir
+							form.submit();
+						}
+					});
+				});
+			});
+		});
+	</script>
 @endsection

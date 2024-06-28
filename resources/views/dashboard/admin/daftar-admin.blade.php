@@ -5,40 +5,43 @@
 		<h4 class="fw-semibold mb-5 mt-1 lh-custom text-center">
 			Daftar Admin SDPPI
 		</h4>
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th scope="col">No</th>
-					<th scope="col">Nama</th>
-					<th scope="col" class="d-none d-md-flex">Email</th>
-					<th scope="col">Peran</th>
-					<th scope="col">Aksi</th>
-				</tr>
-			</thead>
-			<tbody>
-				@forelse ($users as $user)
+
+		<div class="table-responsive-lg">
+			<table class="table table-bordered">
+				<thead>
 					<tr>
-						<th scope="row">{{ $loop->iteration }}</th>
-						<td>{{ $user->name }}</td>
-						<td class="d-none d-md-flex">{{ $user->email }}</td>
-						<td>{{ $user->role }}</td>
-						<td>
-							<form action='{{ route('list.admin.delete', $user->id) }}' method="post" class="delete-admin">
-								@method('delete')
-								@csrf
-								<button class="badge bg-danger border-0" title="Hapus" type="submit">
-									<span data-feather="trash-2" width="18" height="18" class="align-text-bottom"></span>
-								</button>
-							</form>
-						</td>
+						<th scope="col">No</th>
+						<th scope="col">Nama</th>
+						<th scope="col">Email</th>
+						<th scope="col">Peran</th>
+						<th scope="col">Aksi</th>
 					</tr>
-				@empty
-					<tr>
-						<td colspan="4" class="text-center py-5 text-muted ">Tidak ada admin yang terdaftar!</td>
-					</tr>
-				@endforelse
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					@forelse ($users as $user)
+						<tr>
+							<th scope="row">{{ $loop->iteration }}</th>
+							<td>{{ $user->name }}</td>
+							<td>{{ $user->email }}</td>
+							<td>{{ $user->role }}</td>
+							<td>
+								<form action='{{ route('list.admin.delete', $user->id) }}' method="post" class="delete-admin">
+									@method('delete')
+									@csrf
+									<button class="badge bg-danger border-0" title="Hapus" type="submit">
+										<span data-feather="trash-2" width="18" height="18" class="align-text-bottom"></span>
+									</button>
+								</form>
+							</td>
+						</tr>
+					@empty
+						<tr>
+							<td colspan="4" class="text-center py-5 text-muted ">Tidak ada admin yang terdaftar!</td>
+						</tr>
+					@endforelse
+				</tbody>
+			</table>
+		</div>
 	</div>
 
 	<script>

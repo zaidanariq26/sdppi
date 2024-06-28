@@ -145,8 +145,8 @@
 												<div class="col-md-6 mb-md-0 mb-3">
 													<span class="text-secondary d-block">Surat Tembusan</span>
 													<div>
-														@if ($applicant->applicant_data && $applicant->applicant_data->school_mail)
-															<a href="{{ asset('storage/' . $applicant->applicant_data->school_mail) }}" target="_blank"
+														@if ($applicant->applicantData && $applicant->applicantData->school_mail)
+															<a href="{{ asset('storage/' . $applicant->applicantData->school_mail) }}" target="_blank"
 																class="badge bg-primary py-2 ">
 																<span>Lihat Surat Tembusan</span>
 															</a>

@@ -9,7 +9,7 @@
 			<div class="mb-4">
 				<label for="name" class="form-label">Nama Lengkap</label>
 				<input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-					placeholder="Masukkan nama lengkap" value="{{ old('name') }}" required autofocus />
+					placeholder="Masukkan nama lengkap" value="{{ old('name') }}" required autofocus autocomplete="off" />
 				@error('name')
 					<div class="invalid-feedback my-1">
 						{{ $message }}
@@ -20,7 +20,7 @@
 			<div class="mb-4">
 				<label for="student_id" class="form-label">ID Pelajar</label>
 				<input type="number" class="form-control @error('student_id') is-invalid @enderror" id="student_id"
-					name="student_id" placeholder="Masukkan ID pelajar" value="{{ old('student_id') }}" required />
+					name="student_id" placeholder="Masukkan ID pelajar" value="{{ old('student_id') }}" required autocomplete="off" />
 				@error('student_id')
 					<div class="invalid-feedback my-1">
 						{{ $message }}
@@ -31,7 +31,7 @@
 			<div class="mb-4">
 				<label for="school" class="form-label">Asal Sekolah/Universitas</label>
 				<input type="text" class="form-control @error('school') is-invalid @enderror" id="school" name="school"
-					placeholder="Masukkan asal sekolah/universitas" value="{{ old('school') }}" required />
+					placeholder="Masukkan asal sekolah/universitas" value="{{ old('school') }}" required autocomplete="off" />
 				@error('school')
 					<div class="invalid-feedback my-1">
 						{{ $message }}

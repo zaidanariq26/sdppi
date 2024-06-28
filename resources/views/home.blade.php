@@ -7,11 +7,6 @@
 			<p class="mb-4">Mulailah pengalamanmu dengan mendaftarkan diri <br> dan bergabung dengan kami</p>
 			<a href="{{ route('register') }}" class="btn btn-primary p-3 fw-semibold" style="width:200px">Daftar Sekarang</a>
 		</div>
-		{{-- <div class="row">
-				<img src="img/SDPPI.png" style="height: 300px; object-fit:cover; object-position: center; border-radius: 10px"
-					alt="" class="p-0">
-			</div> --}}
-
 		<div class="col-lg-5 order-1 order-lg-2 mb-4 mb-md-0 offset-lg-1">
 			<div class="row">
 				<div class="slider-container">
@@ -110,13 +105,12 @@
 	</section>
 
 	<script>
-		// Array of image sources
+		// Foto
 		const images = ["img/SDPPI.png", "img/SDPPI2.png", "img/SDPPI3.png"];
 
-		// Initial index
 		let currentIndex = 0;
 
-		// Function to change the image
+		// Fungsi untuk mengganti foto
 		function changeImage() {
 			currentIndex = (currentIndex + 1) % images.length;
 			const dynamicImg = document.getElementById('dynamic-img');
@@ -127,7 +121,7 @@
 			}
 		}
 
-		// Change image every 3 seconds (3000 milliseconds)
+		// Mengganti foto setiap 2 detik
 		document.addEventListener("DOMContentLoaded", () => {
 			setInterval(changeImage, 2000);
 		});

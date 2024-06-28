@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
 		User::create([
 			"name" => "Biro Kepegawaian",
-			"username" => "biro_kepegawain",
+			"username" => "biro_kepegawaian",
 			"role" => "biro-kepegawaian",
 			"email" => "birokepegawaian@gmail.com",
 			"password" => bcrypt("password")
@@ -46,14 +46,6 @@ class DatabaseSeeder extends Seeder
 			"password" => bcrypt("password")
 		]);
 
-		User::create([
-			"name" => "Andi",
-			"username" => "andi",
-			"role" => "user",
-			"email" => "andi@gmail.com",
-			"password" => bcrypt("password")
-		]);
-
-		Internship::factory(5)->create();
+		Internship::factory(20)->create();
 	}
 }

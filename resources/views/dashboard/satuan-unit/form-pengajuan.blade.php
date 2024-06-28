@@ -23,7 +23,7 @@
 			<div class="mb-3">
 				<label for="title" class="form-label">Judul</label>
 				<input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
-					placeholder="Tuliskan judul di sini" value="{{ old('title') }}" required autofocus />
+					placeholder="Tuliskan judul di sini" value="{{ old('title') }}" required autofocus autocomplete="off" />
 
 				@error('title')
 					<div class="invalid-feedback my-1">

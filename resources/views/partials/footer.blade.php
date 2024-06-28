@@ -32,14 +32,14 @@
 
 		</div>
 
-		<div class="row" style="margin-top: 128px">
-			<div class="col-3 offset-1 col-md-1 offset-md-1 mb-3 mb-md-0"><a href="https://www.facebook.com/SDPPIKemkominfo"
+		<div class="row flex justify-content-center" style="margin-top: 128px">
+			<div class="col-3  col-md-1 offset-md-0 mb-3 mb-md-0"><a href="https://www.facebook.com/SDPPIKemkominfo"
 					target="_blank"><img style="width: 56px" src="img/fb.png" alt=""></a></div>
-			<div class="col-3 offset-1 col-md-1 offset-md-0 mb-3 mb-md-0"><a target="_blank"
-					href="https://x.com/SDPPI_Kominfo"><img style="width: 56px" src="img/x.png" alt=""></a></div>
-			<div class="col-3 offset-1 col-md-1 offset-md-0 mb-3 mb-md-0"><a target="_blank"
+			<div class="col-3  col-md-1 offset-md-0 mb-3 mb-md-0"><a target="_blank" href="https://x.com/SDPPI_Kominfo"><img
+						style="width: 56px" src="img/x.png" alt=""></a></div>
+			<div class="col-3  col-md-1 offset-md-0 mb-3 mb-md-0"><a target="_blank"
 					href="https://www.instagram.com/sdppi_kominfo/"><img style="width: 56px" src="img/ig.png" alt=""></a></div>
-			<div class="col-3 offset-1 col-md-1 offset-md-0 mb-3 mb-md-0"><a target="_blank"
+			<div class="col-3  col-md-1 offset-md-0 mb-3 mb-md-0"><a target="_blank"
 					href="https://www.youtube.com/c/SDPPIKOMINFO"><img style="width: 56px" src="img/yt.png" alt=""></a></div>
 		</div>
 

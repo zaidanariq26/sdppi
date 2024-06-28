@@ -61,4 +61,26 @@
 			});
 		});
 	});
+
+
+	// Sidebar
+	const xBtn = document.querySelector(".x-btn");
+	const justifyBtn = document.querySelector(".justify-btn");
+	const sidebar = document.querySelector("#sidebar");
+
+	justifyBtn.addEventListener("click", (e) => {
+		sidebar.classList.toggle("sidebar-active");
+		e.preventDefault;
+	});
+	xBtn.addEventListener("click", (e) => {
+		sidebar.classList.remove("sidebar-active");
+		e.preventDefault;
+	});
+
+	document.addEventListener("click", (e) => {
+		if (!sidebar.contains(e.target) && !justifyBtn.contains(e.target)) {
+			sidebar.classList.remove("sidebar-active");
+			e.preventDefault;
+		}
+	});
 </script>

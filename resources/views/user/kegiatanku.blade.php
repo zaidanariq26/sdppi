@@ -85,12 +85,17 @@
 										<hr>
 
 										<div class="row g-2 mt-4">
-											<a href="{{ asset('storage/' . $applicant->surat_keterangan) }}" class="btn btn-primary">Surat Keterangan</a>
-											<button type="button" class="btn btn-success">Sertifikat Kelulusan</button>
+											<a href="{{ asset('storage/' . $applicant->surat_keterangan) }}" target="_blank"
+												data-surat-keterangan="{{ $applicant->surat_keterangan }}" class="btn btn-primary sk-btn">Surat Keterangan
+												Magang</a>
+											@if ($applicant->status == 'lulus')
+												<a href="{{ asset('storage/' . $applicant->certificate) }}" target="_blank"
+													class="btn btn-success sertifikat-btn" data-sertifikat="{{ $applicant->certificate }}">Sertifikat Kelulusan
+													Magang</a>
+											@endif
 										</div>
 									</div>
 									<div class="modal-footer">
-
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
 									</div>
 								</div>
@@ -103,5 +108,41 @@
 			@endforelse
 		</div>
 		</div>
+
+		<script>
+			// Alert untuk surat keterangan yang tidak tersedia
+			const skBtn = document.querySelectorAll('.sk-btn')
+			skBtn.forEach(function(btn) {
+				btn.addEventListener('click', function(e) {
+					const dataSuratKeterangan = btn.getAttribute('data-surat-keterangan');
+
+					if (!dataSuratKeterangan) {
+						e.preventDefault(); // Mencegah link untuk membuka
+						Swal.fire({
+							title: "Invalid Data!",
+							text: "Surat keterangan tidak tersedia. Pastikan status pendaftaran Anda adalah lulus.",
+							icon: "error"
+						});
+					}
+				});
+			});
+
+			// Alert untuk sertifikat yang tidak tersedia
+			const sertifikat = document.querySelectorAll('.sertifikat-btn')
+			sertifikat.forEach(function(btn) {
+				btn.addEventListener('click', function(e) {
+					const dataSertifikat = btn.getAttribute('data-sertifikat');
+
+					if (!dataSertifikat) {
+						e.preventDefault(); // Mencegah link untuk membuka
+						Swal.fire({
+							title: "Invalid Data!",
+							text: "Sertifikat kelulusan magang tidak tersedia. Pastikan Anda telah menyelesaikan proses magang terlebih dahulu.",
+							icon: "error"
+						});
+					}
+				});
+			});
+		</script>
 	</section>
 @endsection

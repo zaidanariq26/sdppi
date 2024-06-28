@@ -113,6 +113,7 @@ Route::middleware(["auth"])->group(function () {
 		Route::put("/dashboard-admin/pendaftaran-magang/{applicantStatus}/rejected", [AdministratorController::class, "rejectedApplicant"])->name("reject.applicant");
 
 		Route::get("/dashboard-admin/peserta-magang", [AdministratorController::class, "listUserIntern"])->name("list.user.intern");
+		Route::put("/dashboard-admin/peserta-magang/unggah-sertifikat/{applicantStatus}", [AdministratorController::class, "uploadCertificate"])->name("upload.certificate");
 	});
 	Route::get("/dashboard-admin/profil-admin", [AdministratorController::class, "showProfileAdmin"])->name("profile.admin");
 });

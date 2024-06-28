@@ -12,7 +12,7 @@
 						@csrf {{-- untuk mengamankan form register --}}
 						<div class="form-floating mb-3">
 							<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
-								placeholder="masukkan nama anda" required value="{{ old('name') }}">
+								placeholder="masukkan nama anda" required value="{{ old('name') }}" autocomplete="off">
 							<label for="name">Nama</label>
 							@error('name')
 								<div class="invalid-feedback">
@@ -22,7 +22,7 @@
 						</div>
 						<div class="form-floating mb-3">
 							<input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username"
-								placeholder="masukkan nama pengguna anda" required value="{{ old('username') }}">
+								placeholder="Masukkan nama pengguna anda" required value="{{ old('username') }}" autocomplete="off">
 							<label for="username">Nama Pengguna</label>
 							@error('username')
 								<div class="invalid-feedback">
@@ -32,7 +32,7 @@
 						</div>
 						<div class="form-floating mb-3">
 							<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email"
-								placeholder="nama@contoh.com" required value="{{ old('email') }}">
+								autocomplete="off" placeholder="nama@contoh.com" required value="{{ old('email') }}">
 							<label for="email">Alamat Email</label>
 							@error('email')
 								<div class="invalid-feedback">
@@ -50,8 +50,8 @@
 								</div>
 							@enderror
 						</div>
-						<button class="btn btn-primary w-100 mb-2" style="background-color: #012850; border: none; padding-inline: 10px"
-							type="submit">Daftar</button>
+						<button class="btn btn-primary w-100 mb-2" style="background-color: #012850; border: none; padding-block: 10px"
+							type="submit">Register</button>
 					</form>
 					<small class="d-block text-center mt-2">Sudah memiliki akun? <a style="text-decoration: none;"
 							href="{{ route('login') }}">Silahkan Login</a></small>

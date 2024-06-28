@@ -8,7 +8,6 @@
 			Lowongan Magang
 		</h4>
 
-
 		<div class="table-responsive-lg">
 			<table class="table table-bordered">
 				<thead>

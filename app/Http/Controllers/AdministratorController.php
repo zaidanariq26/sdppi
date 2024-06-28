@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RejectedMail;
 use App\Models\ApplicantStatus;
 use App\Models\ApplicantData;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class AdministratorController extends Controller
 			"users" => $user
 		]);
 	}
+
 	public function showAdmin()
 	{
 		$user = User::whereNotIn("role", ["user"])->get();
@@ -76,16 +78,8 @@ class AdministratorController extends Controller
 		$applicantStatus->status = "gagal";
 		$applicantStatus->save();
 
-		Mail::send("emails.reject-applicant", ["applicant" => $applicantStatus], function ($message) use ($userEmail) {
-			$message->to($userEmail);
-			$message->subject("Pengumumam Hasil Seleksi Magang SDPPI");
-		});
-
 		try {
-			Mail::send("emails.reject-applicant", ["applicant" => $applicantStatus], function ($message) use ($userEmail) {
-				$message->to($userEmail);
-				$message->subject("Pengumumam Hasil Seleksi Magang SDPPI");
-			});
+			Mail::to($userEmail)->send(new RejectedMail($applicantStatus));
 
 			return redirect()->back()->with("success", "Penolakan pendaftar magang berhasil dilakukan!");
 		} catch (\Exception $e) {
@@ -119,5 +113,41 @@ class AdministratorController extends Controller
 			"title" => "Profil Admin",
 			"data" => $dataAdmin
 		]);
+	}
+
+	public function uploadCertificate(ApplicantStatus $applicantStatus, Request $request)
+	{
+		// Validasi file upload
+		$request->validate([
+			"file" => "required|mimes:pdf|max:3000"
+		]);
+
+		// Cek apakah file ada dalam request
+		if ($request->hasFile("file")) {
+			$file = $request->file("file");
+
+			try {
+				// Simpan file ke dalam storage atau folder yang diinginkan
+				$path = $file->store("certificate");
+
+				// Update kolom certificate pada tabel applicant_status
+				$applicantStatus->update([
+					"certificate" => $path
+				]);
+
+				// Redirect kembali dengan pesan sukses
+				return redirect()->back()->with("success", "Pengunggahan sertifikat kelulusan berhasil dilakukan");
+			} catch (\Exception $e) {
+				// Jika terjadi error saat penyimpanan atau update database, tangani error
+				return redirect()
+					->back()
+					->withErrors(["error" => "Terjadi kesalahan saat mengunggah sertifikat: " . $e->getMessage()]);
+			}
+		} else {
+			// Jika file tidak ditemukan dalam request, kembalikan dengan pesan error
+			return redirect()
+				->back()
+				->withErrors(["error" => "File sertifikat tidak ditemukan dalam request."]);
+		}
 	}
 }
